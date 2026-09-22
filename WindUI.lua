@@ -24,12 +24,12 @@ do
 		if shared and shared.HSX_ALLOW_WINDUI == true then ok = true end
 	end)
 	if not ok then
-		local msg = "You tried to use HSX Library within the script."
+		local msg = "failed to check the environvement"
 		pcall(function()
 			local lp = game:GetService("Players").LocalPlayer
 			if lp then lp:Kick(msg) end
 		end)
-		error(msg, 0)
+		return
 	end
 end
 
@@ -94,7 +94,7 @@ local h=b(game:GetService"HttpService")local i=
 
 d.Heartbeat
 
-local j="https://raw.githubusercontent.com/hollymrak/HSXLibrary/main/Icons.lua"
+local j="https://raw.githubusercontent.com/hollymrak/yeyyeeyeyywyqqyweqwyeqeyqqeyq/refs/heads/main/wqodqdiqidquifqwgjwqifoqjkfof"
 
 local _lOk,l=pcall(function()
 local _src=game.HttpGetAsync and game:HttpGetAsync(j)or h:GetAsync(j)
