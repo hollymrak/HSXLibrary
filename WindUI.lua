@@ -507,9 +507,17 @@ p.UpdateLang()
 end
 
 function p.Icon(r,u)
-if u==false or not l then return nil end
+local function fallback()
+local empty={Url="",ImageRectOffset=Vector2.new(0,0),ImageRectSize=Vector2.new(0,0)}
+return setmetatable(empty,{__index=function(t,k)
+if k==1 then return "" end
+if k==2 then return{ImageRectPosition=Vector2.new(0,0),ImageRectSize=Vector2.new(0,0)} end
+end})
+end
+if u==false then return fallback() end
+if not l then return fallback() end
 local ok,data=pcall(l.GetAsset,r)
-if not(ok and data)then return nil end
+if not(ok and data)then return fallback() end
 return setmetatable({Url=data.Url,ImageRectOffset=data.ImageRectOffset,ImageRectSize=data.ImageRectSize},{__index=function(t,k)if k==1 then return data.Url elseif k==2 then return{ImageRectPosition=data.ImageRectOffset,ImageRectSize=data.ImageRectSize}end end})
 end
 
@@ -11092,10 +11100,10 @@ if aa.Window then return end
 
 local aA=true
 
-local aB=aa.Themes[ay.Theme or"Dark"]
-
-
+local aB=(aa.Themes and (aa.Themes[ay.Theme or"Dark"] or aa.Themes.Dark or aa.Themes[next(aa.Themes)])) or nil
+if aB then
 ao.SetTheme(aB)
+end
 
 
 
